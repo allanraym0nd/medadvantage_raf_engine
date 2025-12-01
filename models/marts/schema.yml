@@ -1,0 +1,66 @@
+# models/marts/schema.yml
+
+version: 2
+
+models:
+  - name: member_hccs
+    description: "Unique HCC conditions per member per year"
+    columns:
+      - name: member_id
+        description: "Member identifier"
+        tests:
+          - not_null
+      - name: service_year
+        description: "Year of service"
+        tests:
+          - not_null
+      - name: hcc_code
+        description: "HCC category code"
+        tests:
+          - not_null
+
+  - name: member_rxhccs
+    description: "Unique RxHCC medications per member per year"
+    columns:
+      - name: member_id
+        description: "Member identifier"
+        tests:
+          - not_null
+      - name: fill_year
+        description: "Year prescription was filled"
+        tests:
+          - not_null
+      - name: rxhcc_code
+        description: "RxHCC category code"
+        tests:
+          - not_null
+
+  - name: member_risk_scores
+    description: "Final risk adjustment scores per member per year - THE MAIN OUTPUT"
+    columns:
+      - name: member_id
+        description: "Unique member identifier"
+        tests:
+          - not_null
+      - name: year
+        description: "Calendar year"
+        tests:
+          - not_null
+      - name: risk_adjustment_factor
+        description: "Final RAF score (1.0 + total risk)"
+        tests:
+          - not_null
+      - name: total_risk_score
+        description: "Sum of all HCC and RxHCC weights"
+        tests:
+          - not_null
+      - name: medical_risk_score
+        description: "Sum of HCC weights from medical claims"
+      - name: pharmacy_risk_score
+        description: "Sum of RxHCC weights from pharmacy claims"
+      - name: condition_count
+        description: "Number of unique HCC conditions"
+      - name: medication_count
+        description: "Number of unique RxHCC medication categories"
+      - name: risk_category
+        description: "Risk stratification category"

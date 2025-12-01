@@ -1,0 +1,51 @@
+# models/core/schema.yml
+
+version: 2
+
+models:
+  - name: core_members
+    description: "Enriched member data with age bands and risk categories"
+    columns:
+      - name: member_id
+        description: "Unique member identifier"
+        tests:
+          - unique
+          - not_null
+      - name: age_band
+        description: "Age grouping for risk stratification"
+      - name: age_risk_category
+        description: "Risk category based on age"
+
+  - name: core_medical_claims
+    description: "Medical claims joined with HCC mappings"
+    columns:
+      - name: claim_id
+        description: "Unique claim identifier"
+        tests:
+          - unique
+          - not_null
+      - name: member_id
+        description: "Reference to member"
+        tests:
+          - not_null
+      - name: hcc_code
+        description: "Hierarchical Condition Category code"
+      - name: hcc_weight
+        description: "Risk adjustment weight for this HCC"
+
+  - name: core_pharmacy_claims
+    description: "Pharmacy claims joined with RxHCC mappings"
+    columns:
+      - name: claim_id
+        description: "Unique claim identifier"
+        tests:
+          - unique
+          - not_null
+      - name: member_id
+        description: "Reference to member"
+        tests:
+          - not_null
+      - name: rxhcc_code
+        description: "Prescription Drug Hierarchical Condition Category code"
+      - name: rxhcc_weight
+        description: "Risk adjustment weight for this RxHCC"

@@ -1,0 +1,58 @@
+
+version: 2
+
+sources:
+  - name: raw
+    database: medadvantage_raf
+    schema: raw
+    tables:
+      - name: members
+        description: "Raw member enrollment data"
+      - name: medical_claims
+        description: "Raw medical claims with diagnosis codes"
+      - name: pharmacy_claims
+        description: "Raw pharmacy claims with drug codes"
+      - name: icd_to_hcc
+        description: "Mapping of ICD-10 codes to HCC categories"
+      - name: ndc_to_rxhcc
+        description: "Mapping of NDC codes to RxHCC categories"
+
+models:
+  - name: stg_members
+    description: "Cleaned and standardized member data"
+    columns:
+      - name: member_id
+        description: "Unique member identifier"
+        tests:
+          - unique
+          - not_null
+      - name: age
+        description: "Calculated age in years"
+        tests:
+          - not_null
+
+  - name: stg_medical_claims
+    description: "Cleaned medical claims data"
+    columns:
+      - name: claim_id
+        description: "Unique claim identifier"
+        tests:
+          - unique
+          - not_null
+      - name: member_id
+        description: "Reference to member"
+        tests:
+          - not_null
+
+  - name: stg_pharmacy_claims
+    description: "Cleaned pharmacy claims data"
+    columns:
+      - name: claim_id
+        description: "Unique claim identifier"
+        tests:
+          - unique
+          - not_null
+      - name: member_id
+        description: "Reference to member"
+        tests:
+          - not_null
