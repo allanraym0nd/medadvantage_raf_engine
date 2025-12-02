@@ -1,4 +1,3 @@
--- models/staging/stg_pharmacy_claims.sql
 
 {{ config(
     materialized='view'

@@ -1,4 +1,3 @@
--- models/core/core_pharmacy_claims.sql
 
 {{ config(
     materialized='table'

@@ -1,5 +1,3 @@
--- models/marts/member_rxhccs.sql
-
 {{ config(
     materialized='table'
 ) }}
